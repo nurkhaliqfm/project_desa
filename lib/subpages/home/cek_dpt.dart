@@ -59,9 +59,10 @@ class _CekDptState extends State<CekDpt> {
                         child: const Text(
                           'Cari Data',
                           style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w400),
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                       ),
                     ),
