@@ -39,7 +39,7 @@ class _MainNavigationState extends State<MainNavigation> {
               if (state.index == -1) {
                 return const Letter();
               } else if (state.index == 1) {
-                return Shop();
+                return const Shop();
               } else if (state.index == 2) {
                 return News();
               } else if (state.index == 3) {

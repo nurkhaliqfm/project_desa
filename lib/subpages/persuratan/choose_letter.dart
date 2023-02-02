@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:project_desa/subpages/persuratan/form_letter.dart';
 
 class ChooseLetter extends StatefulWidget {
@@ -29,18 +30,41 @@ class _ChooseLetterState extends State<ChooseLetter> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                padding: const EdgeInsets.only(top: 10.0, bottom: 14),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text(
-                      'Daftar Surat',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20.0, color: Colors.black),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(width: 1, color: Colors.black26)),
+                    child: SizedBox(
+                      width: 40,
+                      height: 40,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Icon(
+                          Ionicons.arrow_back,
+                          color: Colors.black,
+                          size: 25,
+                        ),
+                      ),
                     ),
-                  ],
-                ),
+                  ),
+                  const Text(
+                    'Daftar Surat',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20.0),
+                  ),
+                  const SizedBox(
+                    height: 40,
+                    width: 40,
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 10,
               ),
               Flexible(
                 child: ListView.builder(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 
 class LetterStatus extends StatefulWidget {
   const LetterStatus({super.key});
@@ -14,28 +15,36 @@ class _LetterStatusState extends State<LetterStatus> {
       'name': "Surat Domisili",
       'id_status': 'failed',
       'status': 'Gagal',
-      'date': '11 Januari 2023'
+      'date': '11 Januari 2023',
+      'msg':
+          'Mohon maaf pengajuan anda belum bisa diproses karena berkas KTP yang anda upload tidak terdaftar.'
     },
     {
       "id": 2,
       'name': "Surat Kematian",
       'id_status': 'success',
       'status': 'Selesai',
-      'date': '11 Januari 2023'
+      'date': '11 Januari 2023',
+      'msg':
+          'Surat anda telah selesai dibuat, silahkan dipergunakan secara bijak. Surat telah di lengkapi barcode sebagai bentuk sah surat dari desa.'
     },
     {
       "id": 3,
       'name': "Surat Ijin Usaha",
       'id_status': 'pending',
       'status': 'Verifikasi',
-      'date': '11 Januari 2023'
+      'date': '11 Januari 2023',
+      'msg':
+          'Surat anda masih dalam tahap pengecekan berkas dan penyetujuan dari kepala desa / sekertaris desa. Mohon bersabar dan mengecek kembali beberapa waktu kedepan.'
     },
     {
       "id": 4,
       'name': "Surat Keterangan Kurang Mampu 2023",
       'id_status': 'pending',
       'status': 'Verifikasi',
-      'date': '11 Januari 2023'
+      'date': '11 Januari 2023',
+      'msg':
+          'Surat anda masih dalam tahap pengecekan berkas dan penyetujuan dari kepala desa / sekertaris desa. Mohon bersabar dan mengecek kembali beberapa waktu kedepan.'
     },
   ];
 
@@ -51,18 +60,41 @@ class _LetterStatusState extends State<LetterStatus> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                padding: const EdgeInsets.only(top: 10.0, bottom: 14),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text(
-                      'Daftar Surat',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20.0, color: Colors.black),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(width: 1, color: Colors.black26)),
+                    child: SizedBox(
+                      width: 40,
+                      height: 40,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Icon(
+                          Ionicons.arrow_back,
+                          color: Colors.black,
+                          size: 25,
+                        ),
+                      ),
                     ),
-                  ],
-                ),
+                  ),
+                  const Text(
+                    'Status Persuratan',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20.0),
+                  ),
+                  const SizedBox(
+                    height: 40,
+                    width: 40,
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 10,
               ),
               Flexible(
                 child: ListView.builder(
@@ -132,7 +164,7 @@ class _LetterStatusState extends State<LetterStatus> {
                                   ),
                                 ),
                               ],
-                              Container(
+                              SizedBox(
                                 width: 200,
                                 child: Text(
                                   _listStatusSurat[index]['name'],
@@ -152,7 +184,63 @@ class _LetterStatusState extends State<LetterStatus> {
                             ],
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () => showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                if (_listStatusSurat[index]['id_status'] ==
+                                    'success') {
+                                  return AlertDialog(
+                                    content: Text(
+                                      _listStatusSurat[index]['msg'],
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    actionsAlignment: MainAxisAlignment.center,
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {},
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: const [
+                                            Icon(
+                                              Ionicons.download_outline,
+                                              color: Colors.black,
+                                            ),
+                                            SizedBox(
+                                              width: 5,
+                                            ),
+                                            Text(
+                                              'Download Surat',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.w400),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                } else if (_listStatusSurat[index]
+                                        ['id_status'] ==
+                                    'pending') {
+                                  return AlertDialog(
+                                    content: Text(
+                                      _listStatusSurat[index]['msg'],
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  );
+                                }
+                                return AlertDialog(
+                                  content: Text(
+                                    _listStatusSurat[index]['msg'],
+                                    textAlign: TextAlign.center,
+                                  ),
+                                );
+                              },
+                            ),
                             style:
                                 TextButton.styleFrom(padding: EdgeInsets.zero),
                             child: Container(

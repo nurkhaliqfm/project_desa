@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 
 class ProfilDesa extends StatefulWidget {
   const ProfilDesa({super.key});
@@ -83,18 +84,41 @@ class _ProfilDesaState extends State<ProfilDesa> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                padding: const EdgeInsets.only(top: 10.0, bottom: 14),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text(
-                      'Profil Desa',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20.0, color: Colors.black),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(width: 1, color: Colors.black26)),
+                    child: SizedBox(
+                      width: 40,
+                      height: 40,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Icon(
+                          Ionicons.arrow_back,
+                          color: Colors.black,
+                          size: 25,
+                        ),
+                      ),
                     ),
-                  ],
-                ),
+                  ),
+                  const Text(
+                    'Profil Desa',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20.0),
+                  ),
+                  const SizedBox(
+                    height: 40,
+                    width: 40,
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 10,
               ),
               Flexible(
                 child: ListView(
@@ -120,6 +144,9 @@ class _ProfilDesaState extends State<ProfilDesa> {
                               'Kepala Desa Lampenai',
                               textAlign: TextAlign.center,
                               style: TextStyle(fontSize: 15),
+                            ),
+                            const SizedBox(
+                              height: 10,
                             ),
                             const Text(
                               'Assalamu\'alaikum warahmatullahi wabarakatuh. Selamat Datang di “Website Desa Senga Selatan“, melalui website ini kami berupaya menghadirkan informasi seputar kegiatan dan program Desa Senga Selatan“, Kecamatan Belopa, Kabupaten Luwu, Prov. Sulawesi Selatan. Website ini kami hadirkan untuk mengikuti perkembangan dunia Teknologi Informasi (IT) yang kian pesat. Lahir dari sebuah ide kreatif dan inovatif, serta merupakan sebuah terobosan kami untuk lebih mendekatkan diri kepada masyarakat luas. Kami berupaya agar informasi tentang Desa Senga Selatan menjadi lebih terbuka dan interaktif. Kami sampaikan terima kasih kepada semua pihak yang telah banyak memberikan bantuan, dukungan dan kontribusi, baik berupa tenaga, pemikiran dan dorongan semangat, hingga Website ini dapat terealisasi. Semoga dengan adanya Website ini dapat bermanfaat dan menjadi salah satu upaya peningkatan pelayanan Desa Senga Selatan.',

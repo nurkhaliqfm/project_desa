@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ionicons/ionicons.dart';
 
 class FormLetter extends StatefulWidget {
   const FormLetter({super.key});
@@ -31,8 +32,8 @@ class _FormLetterState extends State<FormLetter> {
       builder: (BuildContext context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          title: Text('Please choose media to select'),
-          content: Container(
+          title: const Text('Please choose media to select'),
+          content: SizedBox(
             height: MediaQuery.of(context).size.height / 6,
             child: Column(
               children: [
@@ -43,7 +44,7 @@ class _FormLetterState extends State<FormLetter> {
                     getImage(ImageSource.gallery);
                   },
                   child: Row(
-                    children: [
+                    children: const [
                       Icon(Icons.image),
                       Text('From Gallery'),
                     ],
@@ -56,7 +57,7 @@ class _FormLetterState extends State<FormLetter> {
                     getImage(ImageSource.camera);
                   },
                   child: Row(
-                    children: [
+                    children: const [
                       Icon(Icons.camera),
                       Text('From Camera'),
                     ],
@@ -82,18 +83,41 @@ class _FormLetterState extends State<FormLetter> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                padding: const EdgeInsets.only(top: 10.0, bottom: 14),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text(
-                      'Form Pengajuan',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20.0, color: Colors.black),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(width: 1, color: Colors.black26)),
+                    child: SizedBox(
+                      width: 40,
+                      height: 40,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Icon(
+                          Ionicons.arrow_back,
+                          color: Colors.black,
+                          size: 25,
+                        ),
+                      ),
                     ),
-                  ],
-                ),
+                  ),
+                  const Text(
+                    'Form Pengajuan',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20.0),
+                  ),
+                  const SizedBox(
+                    height: 40,
+                    width: 40,
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 10,
               ),
               TextFormField(
                 decoration: const InputDecoration(
