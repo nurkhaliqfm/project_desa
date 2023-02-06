@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:project_desa/bloc/identitas_desa/identitas_desa_bloc.dart';
 
 class ProfilDesa extends StatefulWidget {
   const ProfilDesa({super.key});
@@ -74,103 +76,123 @@ class _ProfilDesaState extends State<ProfilDesa> {
       },
     );
 
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: double.infinity,
-          padding: const EdgeInsets.all(10.0),
-          color: Colors.white,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(width: 1, color: Colors.black26)),
-                    child: SizedBox(
-                      width: 40,
-                      height: 40,
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Icon(
-                          Ionicons.arrow_back,
-                          color: Colors.black,
-                          size: 25,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const Text(
-                    'Profil Desa',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 20.0),
-                  ),
-                  const SizedBox(
-                    height: 40,
-                    width: 40,
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Flexible(
-                child: ListView(
+    return BlocProvider(
+      create: (context) => IdentitasDesaBloc()..add(GetIdentitasDesa()),
+      child: Scaffold(
+        body: SafeArea(
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: double.infinity,
+            padding: const EdgeInsets.all(10.0),
+            color: Colors.white,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Image.asset(
-                      'assets/images/codebreak.png',
-                      height: 200.0,
-                      width: 200.0,
-                    ),
                     Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Column(
-                          children: [
-                            const Text(
-                              'Andi Muhammad Arfan Basmin, SH',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 18),
-                            ),
-                            const Text(
-                              'Kepala Desa Lampenai',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 15),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            const Text(
-                              'Assalamu\'alaikum warahmatullahi wabarakatuh. Selamat Datang di “Website Desa Senga Selatan“, melalui website ini kami berupaya menghadirkan informasi seputar kegiatan dan program Desa Senga Selatan“, Kecamatan Belopa, Kabupaten Luwu, Prov. Sulawesi Selatan. Website ini kami hadirkan untuk mengikuti perkembangan dunia Teknologi Informasi (IT) yang kian pesat. Lahir dari sebuah ide kreatif dan inovatif, serta merupakan sebuah terobosan kami untuk lebih mendekatkan diri kepada masyarakat luas. Kami berupaya agar informasi tentang Desa Senga Selatan menjadi lebih terbuka dan interaktif. Kami sampaikan terima kasih kepada semua pihak yang telah banyak memberikan bantuan, dukungan dan kontribusi, baik berupa tenaga, pemikiran dan dorongan semangat, hingga Website ini dapat terealisasi. Semoga dengan adanya Website ini dapat bermanfaat dan menjadi salah satu upaya peningkatan pelayanan Desa Senga Selatan.',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 18),
-                            ),
-                            GridView.count(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 20.0),
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 20,
-                              mainAxisSpacing: 20,
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              children: potensiListItem,
-                            ),
-                          ],
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(width: 1, color: Colors.black26)),
+                      child: SizedBox(
+                        width: 40,
+                        height: 40,
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Icon(
+                            Ionicons.arrow_back,
+                            color: Colors.black,
+                            size: 25,
+                          ),
                         ),
                       ),
                     ),
+                    const Text(
+                      'Profil Desa',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 20.0),
+                    ),
+                    const SizedBox(
+                      height: 40,
+                      width: 40,
+                    )
                   ],
                 ),
-              )
-            ],
+                const SizedBox(
+                  height: 10,
+                ),
+                Flexible(
+                  child: ListView(
+                    children: [
+                      Image.asset(
+                        'assets/images/codebreak.png',
+                        height: 200.0,
+                        width: 200.0,
+                      ),
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: BlocBuilder<IdentitasDesaBloc,
+                              IdentitasDesaState>(
+                            builder: (context, state) {
+                              if (state is IdentitasDesaLoading) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
+
+                              if (state is IdentitasDesaSuccess) {
+                                return Column(
+                                  children: [
+                                    Text(
+                                      state.identitasDesa[0].namaKades,
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(fontSize: 18),
+                                    ),
+                                    Text(
+                                      'Kepala Desa ${state.identitasDesa[0].namaDesa}',
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(fontSize: 15),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      state.identitasDesa[0].deskripsi,
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(fontSize: 18),
+                                    ),
+                                    GridView.count(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 20.0),
+                                      crossAxisCount: 2,
+                                      crossAxisSpacing: 20,
+                                      mainAxisSpacing: 20,
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      children: potensiListItem,
+                                    ),
+                                  ],
+                                );
+                              }
+                              return const Center(
+                                child: Text('No Data'),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

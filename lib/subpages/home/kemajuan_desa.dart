@@ -22,15 +22,16 @@ class _KemajuanDesaState extends State<KemajuanDesa> {
         children: [
           const Text("Kemajuan Desa"),
           TextButton(
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => const MainNavigation(),
-                  ),
-                );
-              },
-              child: const Text('Back to Home'))
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => const MainNavigation(),
+                ),
+              );
+            },
+            child: const Text('Back to Home'),
+          )
         ],
       ),
     );
